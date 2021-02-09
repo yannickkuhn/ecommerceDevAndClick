@@ -9,9 +9,24 @@
         </div>
         
         <div class="span9">
+            <ul class="thumbnails">
+               {% for product in products %}
+                <li class="span3">
+                    <div class="thumbnail">
+                        <img src="{{ asset('img/holder.png') }}" alt="DevAndClick" width="300" height="300">
+                        <div class="caption">
+                            <h4>{{ product.name }}</h4>
+                            <p>20,00 €</p>
+                            <a class="btn btn-primary" href="{{ path('presentation') }}">Plus d'infos</a>
+                            <a class="btn btn-success" href="{{ path('panier') }}">Ajouter au panier</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
 
             <ul class="thumbnails">
-               {% for i in 0..10 %}
+               {% for i in 0..8 %}
                 <li class="span3">
                     <div class="thumbnail">
                         <img src="{{ asset('img/holder.png') }}" alt="DevAndClick" width="300" height="300">
