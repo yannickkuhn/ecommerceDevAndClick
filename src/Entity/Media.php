@@ -48,7 +48,7 @@ class Media
 
     public function getUploadRootDir()
     {
-        return __dir__.'/../../../../web/uploads';
+        return __dir__.'/../../public/uploads';
     }
     
     public function getAbsolutePath()
@@ -81,6 +81,7 @@ class Media
      */
     public function upload()
     {
+        //dd($this->getUploadRootDir());
         if (null !== $this->file) {
             $this->file->move($this->getUploadRootDir(),$this->path);
             unset($this->file);

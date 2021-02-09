@@ -40,6 +40,23 @@ class CategoriesAdminController extends AbstractController
      */
     public function create(Request $request)
     {
+        $entity = new Categories();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            //return $this->redirect($this->generateUrl('adminCategories_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('adminCategories'));
+        }
+
+        return $this->render('Administration/Categories/layout/new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
     }
 
     /**
