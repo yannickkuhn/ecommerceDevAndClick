@@ -1,0 +1,11 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Nouvelle TVA{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle TVA</h1>
+
+    {{ include('Administration/Tva/_form.html.twig') }}
+
+    <a href="{{ path('adminTva_index') }}">Retour à la liste</a>
+{% endblock %}

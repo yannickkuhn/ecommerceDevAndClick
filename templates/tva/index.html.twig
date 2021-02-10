@@ -1,0 +1,39 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Liste des TVAs{% endblock %}
+
+{% block body %}
+    <h1>Liste des TVAs</h1>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Coefficient</th>
+                <th>Nom</th>
+                <th>Valeur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tva in tvas %}
+            <tr>
+                <td>{{ tva.id }}</td>
+                <td>{{ tva.multiplicate }}</td>
+                <td>{{ tva.nom }}</td>
+                <td>{{ tva.valeur }}</td>
+                <td>
+                    <a href="{{ path('adminTva_show', {'id': tva.id}) }}"><i class="icon-book"></i> Voir</a>
+                    <a href="{{ path('adminTva_edit', {'id': tva.id}) }}"><i class="icon-edit"></i> Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Pas d'enregistrements</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('adminTva_new') }}">Créer une nouvelle TVA</a>
+{% endblock %}

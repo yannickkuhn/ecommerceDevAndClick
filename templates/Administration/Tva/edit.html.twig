@@ -1,0 +1,13 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Edition d'une TVA{% endblock %}
+
+{% block body %}
+    <h1>Edition d'une TVA</h1>
+
+    {{ include('Administration/Tva/_form.html.twig', {'button_label': 'Editer'}) }}
+
+    <a href="{{ path('adminTva_index') }}">Retour à la liste</a>
+
+    {{ include('Administration/Tva/_delete_form.html.twig') }}
+{% endblock %}
