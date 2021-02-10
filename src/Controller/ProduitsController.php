@@ -13,19 +13,29 @@ class ProduitsController extends AbstractController
     /**
      * @Route("/", name="produits")
      */
-    public function produitsAction(): Response
+    public function produits(): Response
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
-        //dd($products);
+        $products = [];
+        return $this->render('produits/layout/produits.html.twig', [
+            'products' => $products
+        ]);
+    }
+
+    /**
+     * @Route("/categorie/{categorie}", name="categorieProduits")
+     */
+    public function categorieProduits(Categories $categorie = null): Response
+    {
+        $products = [];
         return $this->render('produits/layout/produits.html.twig', [
             'products' => $products
         ]);
     }
     
     /**
-     * @Route("/produit", name="presentation")
+     * @Route("/produit/presentation", name="presentation")
      */
-    public function presentationAction(): Response
+    public function presentation(): Response
     {
         return $this->render('produits/layout/presentation.html.twig');
     }

@@ -8,11 +8,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PagesController extends AbstractController
 {
-    /**
-     * @Route("/page/{id}", name="page")
-     */
-    public function pageAction($id): Response
+
+    public function menu()
     {
-        return $this->render('pages/layout/pages.html.twig');
+        //$em = $this->getDoctrine()->getManager();
+        //$pages = $em->getRepository('PagesBundle:Pages')->findAll();
+        $pages = [];
+        
+        return $this->render('Default/pages/modulesUsed/menu.html.twig', array('pages' => $pages));
     }
 }
