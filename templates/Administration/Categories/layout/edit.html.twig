@@ -1,9 +1,9 @@
 {% extends 'baseAdmin.html.twig' %}
 
 {% block body -%}
-    <h1>Création d'une nouvelle catégorie</h1>
+    <h1>Edition de la catégorie</h1>
 
-    {{ form(form) }}
+    {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
@@ -11,5 +11,6 @@
             Revenir à la liste
         </a>
     </li>
+    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

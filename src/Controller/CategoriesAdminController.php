@@ -36,7 +36,7 @@ class CategoriesAdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/categories/create", name="adminCategories_create")
+     * @Route("/admin/categories/create", name="adminCategories_create", requirements={"_method"="post"})
      */
     public function create(Request $request)
     {
@@ -89,16 +89,123 @@ class CategoriesAdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/categories/show", name="adminCategories_show")
+     * @Route("/admin/categories/{id}/show", name="adminCategories_show")
      */
-    public function show()
+    public function show($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Categories::class)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Impossible de trouver la catégorie');
+        }
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('Administration/Categories/layout/show.html.twig', array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),        
+        ));
     }
 
     /**
-     * @Route("/admin/categories/edit", name="adminCategories_edit")
+     * @Route("/admin/categories/{id}/edit", name="adminCategories_edit")
      */
-    public function edit()
+    public function edit($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Categories::class)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Impossible de trouver la catégorie.');
+        }
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('Administration/Categories/layout/edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+    * Creates a form to edit a Categories entity.
+    * @param Categories $entity The entity
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Categories $entity)
+    {
+        $form = $this->createForm(CategoriesType::class, $entity, array(
+            'action' => $this->generateUrl('adminCategories_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', SubmitType::class, array('label' => 'Editer'));
+
+        return $form;
+    }
+
+    /**
+     * @Route("/admin/categories/{id}/update", name="adminCategories_update", requirements={"_method"="post|put"})
+     */
+    public function update(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Categories::class)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Impossible de trouver la catégorie.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('adminCategories_edit', array('id' => $id)));
+        }
+
+        return $this->render('Administration/Categories/layout/edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/admin/categories/{id}/delete", name="adminCategories_delete", requirements={"_method"="post|delete"})
+     */
+    public function delete(Request $request, $id)
+    {
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository(Categories::class)->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Impossible de trouver la catégorie.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('adminCategories'));
+    }
+
+    /**
+     * Creates a form to delete a Categories entity by id.
+     * @param mixed $id The entity id
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('adminCategories_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Supprimer'))
+            ->getForm()
+        ;
     }
 }
