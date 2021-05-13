@@ -16,7 +16,7 @@
                         <img src="{{ asset('img/holder.png') }}" alt="DevAndClick" width="300" height="300">
                         <div class="caption">
                             <h4>{{ product.name }}</h4>
-                            <p>20,00 €</p>
+                            <p>{{ product.price|tva(product.tva.multiplicate) }} €</p>
                             <a class="btn btn-primary" href="{{ path('presentation') }}">Plus d'infos</a>
                             <a class="btn btn-success" href="{{ path('panier') }}">Ajouter au panier</a>
                         </div>
