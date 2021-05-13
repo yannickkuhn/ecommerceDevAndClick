@@ -2,19 +2,33 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Product;
+use App\Entity\Categories;
+use App\Repository\ProductRepository;
 
 class ProduitsController extends AbstractController
 {
+    private $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
     /**
      * @Route("/", name="produits")
      */
-    public function produits(): Response
+    public function produits(SessionInterface $session): Response
     {
+        $session = $this->session;
+        $em = $this->getDoctrine()->getManager();
+        $findProduits = $em->getRepository(ProductRepository::class)->findBy(array('disponible' => 1));
+
         $products = [];
         return $this->render('produits/layout/produits.html.twig', [
             'products' => $products
