@@ -39,8 +39,8 @@ class ProduitsController extends AbstractController
      */
     public function categorieProduits(Categories $categorie = null): Response
     {
-        //$findProducts = $this->getDoctrine()->getRepository(Product::class)->findBy(array('disponible' => 1));
-        //dd($findProducts);
+        $findProducts = $this->getDoctrine()->getRepository(Product::class)->findBy(array('available' => 1));
+        dd($findProducts);
 
         $products = [];
         return $this->render('produits/layout/produits.html.twig', [

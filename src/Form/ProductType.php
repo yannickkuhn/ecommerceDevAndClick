@@ -2,26 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\Media;
+use App\Entity\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\Form\MediaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class MediaType extends AbstractType
+class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, array('required' => false, 'label' => 'Fichier à charger'))
-            ->add('name', null, ['label' => 'Nom de l\'image']);
+            ->add('name', null, ['label' => 'Nom'])
+            ->add('description')
+            ->add('price', null, ['label' => 'Prix de vente HT'])
+            ->add('available', null, ['label' => 'Disponible'])
+            ->add('image', MediaType::class)
+            ->add('category', null, ['label' => 'Catégorie'])
+            ->add('tva')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Media::class,
+            'data_class' => Product::class,
         ]);
     }
 
@@ -30,6 +36,6 @@ class MediaType extends AbstractType
      */
     public function getName()
     {
-        return 'ecommerce_ecommercebundle_media';
+        return 'ecommerce_ecommercebundle_products';
     }
 }
