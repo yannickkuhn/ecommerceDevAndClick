@@ -23,12 +23,11 @@ class ProduitsController extends AbstractController
     /**
      * @Route("/", name="produits")
      */
-    public function produits(SessionInterface $session): Response
+    public function produits(): Response
     {
         $session = $this->session;
         $em = $this->getDoctrine()->getManager();
-        $findProduits = $em->getRepository(ProductRepository::class)->findBy(array('disponible' => 1));
-
+        
         $products = [];
         return $this->render('produits/layout/produits.html.twig', [
             'products' => $products
@@ -40,6 +39,9 @@ class ProduitsController extends AbstractController
      */
     public function categorieProduits(Categories $categorie = null): Response
     {
+        //$findProducts = $this->getDoctrine()->getRepository(Product::class)->findBy(array('disponible' => 1));
+        //dd($findProducts);
+
         $products = [];
         return $this->render('produits/layout/produits.html.twig', [
             'products' => $products
