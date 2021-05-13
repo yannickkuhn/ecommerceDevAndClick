@@ -13,7 +13,7 @@
                {% for product in products %}
                 <li class="span3">
                     <div class="thumbnail">
-                        <img src="{{ asset('img/holder.png') }}" alt="DevAndClick" width="300" height="300">
+                        <img src="{{ asset(product.image.AssetPath) }}" alt="DevAndClick" width="300" height="300">
                         <div class="caption">
                             <h4>{{ product.name }}</h4>
                             <p>{{ product.price|tva(product.tva.multiplicate) }} €</p>

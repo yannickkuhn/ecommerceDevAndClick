@@ -26,7 +26,15 @@ class ProduitsController extends AbstractController
     public function produits(): Response
     {
         $session = $this->session;
-        $em = $this->getDoctrine()->getManager();
+        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(array('available' => 1));
+
+        if ($session->has('panier'))
+            $panier = $session->get('panier');
+        else
+            $panier = false;
+        
+        //$produits = $this->get('knp_paginator')->paginate($findProduits,$this->get('request')->query->get('page', 1),3);
+        
         
         $products = [];
         return $this->render('produits/layout/produits.html.twig', [
@@ -39,7 +47,16 @@ class ProduitsController extends AbstractController
      */
     public function categorieProduits(Categories $categorie = null): Response
     {
-        $products = $this->getDoctrine()->getRepository(Product::class)->findBy(array('available' => 1));
+        $session = $this->session;
+        $products = $this->getDoctrine()->getRepository(Product::class)->byCategorie($categorie);
+
+        if ($session->has('panier'))
+            $panier = $session->get('panier');
+        else
+            $panier = false;
+        
+        //$produits = $this->get('knp_paginator')->paginate($findProduits,$this->get('request')->query->get('page', 1),3);
+
         return $this->render('produits/layout/produits.html.twig', [
             'products' => $products
         ]);
