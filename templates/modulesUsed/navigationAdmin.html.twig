@@ -1,13 +1,19 @@
-<div class="span3">
-
-    <div class="well">
-        <ul class="nav nav-list">
-            <li>
-                <!-- TODO : RAJOUTER LES MENUS AU FUR ET A MESURE -->
-                <a href="{{ path('adminCategories') }}">Catégories produits</a>
-                <a href="{{ path('adminTva_index') }}">Liste des TVAs</a>
-                <a href="{{ path('adminProducts') }}">Liste des produits</a>
-            </li>
-        </ul>
-    </div>  
-</div>
+<!-- TODO : RAJOUTER LES MENUS AU FUR ET A MESURE -->
+<li class="nav-item">
+    <a class="nav-link active" href="{{ path('adminCategories') }}">
+    <span data-feather="home"></span>
+    Catégories produits <span class="sr-only">(current)</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('adminTva_index') }}">
+    <span data-feather="file"></span>
+    Liste des TVAs
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ path('adminProducts') }}">
+    <span data-feather="file"></span>
+    Liste des produits
+    </a>
+</li>
