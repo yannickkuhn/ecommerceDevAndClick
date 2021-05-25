@@ -13,11 +13,11 @@
                {% for product in products %}
                 <li class="span3">
                     <div class="thumbnail">
-                        <img src="{{ asset(product.image.AssetPath) }}" alt="DevAndClick" width="300" height="300">
+                        <img src="{{ asset(product.image.AssetPath) }}" alt="DevAndClick"> 
                         <div class="caption">
                             <h4>{{ product.name }}</h4>
                             <p>{{ product.price|tva(product.tva.multiplicate) }} €</p>
-                            <a class="btn btn-primary" href="{{ path('presentation') }}">Plus d'infos</a>
+                            <a class="btn btn-primary" href="{{ path('presentation', { 'product' : product.id }) }}">Plus d'infos</a>
                             <a class="btn btn-success" href="{{ path('panier') }}">Ajouter au panier</a>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                 {% endfor %}
             </ul>
 
-            <ul class="thumbnails">
+            <!--<ul class="thumbnails">
                {% for i in 0..8 %}
                 <li class="span3">
                     <div class="thumbnail">
@@ -39,7 +39,7 @@
                     </div>
                 </li>
                 {% endfor %}
-            </ul>
+            </ul>-->
 
             <div class="pagination">
                 <ul>

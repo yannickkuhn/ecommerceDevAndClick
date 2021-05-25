@@ -35,8 +35,6 @@ class ProduitsController extends AbstractController
         
         //$produits = $this->get('knp_paginator')->paginate($findProduits,$this->get('request')->query->get('page', 1),3);
         
-        
-        $products = [];
         return $this->render('produits/layout/produits.html.twig', [
             'products' => $products
         ]);
@@ -63,10 +61,22 @@ class ProduitsController extends AbstractController
     }
     
     /**
-     * @Route("/produit/presentation", name="presentation")
+     * @Route("/produit/presentation/{product}", name="presentation")
      */
-    public function presentation(): Response
+    public function presentation(Product $product = null): Response
     {
-        return $this->render('produits/layout/presentation.html.twig');
+        $session = $this->session;
+        
+        if (!$product) throw $this->createNotFoundException('La page n\'existe pas.');
+        
+        if ($session->has('panier'))
+            $panier = $session->get('panier');
+        else
+            $panier = false;
+        
+        return $this->render('produits/layout/presentation.html.twig', [
+            'product' => $product,
+            'panier' => $panier
+        ]);
     }
 }

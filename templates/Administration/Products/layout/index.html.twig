@@ -6,8 +6,9 @@
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
+                <th>Prix HT</th>
+                <th>Disponible</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -16,7 +17,8 @@
             <tr>
                 <td>{{ entity.name }}</td>
                 <td>{{ entity.price }}</td>
-                <td>{{ entity.available }}</td>
+                <td>{{ entity.available == 1 ? 'oui':'non' }}</td>
+                <td></td>
             </tr>
         {% endfor %}
         </tbody>
