@@ -13,7 +13,7 @@
                {% for product in products %}
                 <li class="span3">
                     <div class="thumbnail">
-                        <img src="{{ asset(product.image.AssetPath) }}" alt="DevAndClick"> 
+                        <img src="{{ asset(product.image.AssetPath) }}" alt="EstMusique"> 
                         <div class="caption">
                             <h4>{{ product.name }}</h4>
                             <p>{{ product.price|tva(product.tva.multiplicate)|format_currency('EUR', locale='fr') }}</p>
@@ -29,7 +29,7 @@
                {% for i in 0..8 %}
                 <li class="span3">
                     <div class="thumbnail">
-                        <img src="{{ asset('img/holder.png') }}" alt="DevAndClick" width="300" height="300">
+                        <img src="{{ asset('img/holder.png') }}" alt="EstMusique" width="300" height="300">
                         <div class="caption">
                             <h4>Thumbnail label</h4>
                             <p>100,00 €</p>
