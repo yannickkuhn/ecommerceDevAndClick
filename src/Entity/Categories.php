@@ -28,7 +28,7 @@ class Categories
     /**
      * @ORM\Column(type="string", length=125)
      */
-    private $nom;
+    private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
@@ -57,21 +57,21 @@ class Categories
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
     public function __toString()
     {
-        return $this->getNom();
+        return $this->getName();
     }
 
     /**
