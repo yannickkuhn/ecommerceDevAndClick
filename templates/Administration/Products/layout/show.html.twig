@@ -1,0 +1,44 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body -%}
+    <h1>Voir le produit</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Prix HT</th>
+                <td>{{ entity.price }}</td>
+            </tr>
+            <tr>
+                <th>Prix TTC (déduit)</th>
+                <td>{{ entity.price|tva(entity.tva.multiplicate) }} €</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('adminProducts') }}">
+            Retour à la liste
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('adminProducts_edit', { 'id': entity.id }) }}">
+            éditer
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

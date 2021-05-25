@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Form\MediaType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProductType extends AbstractType
@@ -15,7 +16,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', null, ['label' => 'Nom'])
-            ->add('description')
+            ->add('description', TextareaType::class)
             ->add('price', null, ['label' => 'Prix de vente HT'])
             ->add('available', null, ['label' => 'Disponible'])
             ->add('image', MediaType::class)

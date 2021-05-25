@@ -8,6 +8,7 @@
             <tr>
                 <th>Nom</th>
                 <th>Prix HT</th>
+                <th>Prix TTC (avec TVA)</th>
                 <th>Disponible</th>
                 <th>Actions</th>
             </tr>
@@ -16,9 +17,13 @@
         {% for entity in entities %}
             <tr>
                 <td>{{ entity.name }}</td>
-                <td>{{ entity.price }}</td>
+                <td>{{ entity.price|format_currency('EUR', locale='fr') }}</td>
+                <td>{{ entity.price|tva(entity.tva.multiplicate)|format_currency('EUR', locale='fr') }}</td>
                 <td>{{ entity.available == 1 ? 'oui':'non' }}</td>
-                <td></td>
+                <td>
+                    <a href="{{ path('adminProducts_show', { 'id': entity.id }) }}"><i class="icon-book"></i> Voir</a>
+                    <a href="{{ path('adminProducts_edit', { 'id': entity.id }) }}"><i class="icon-edit"></i> Editer</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

@@ -49,7 +49,7 @@ class ProduitsAdminController extends AbstractController
     }
 
     /**
-    * Creates a form to create a Categories entity.
+    * Creates a form to create a Product entity.
     * @param Product $entity The entity
     * @return \Symfony\Component\Form\Form The form
     */
@@ -75,5 +75,126 @@ class ProduitsAdminController extends AbstractController
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/admin/produits/{id}/show", name="adminProducts_show")
+     */
+    public function show($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Product::class)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Impossible de trouver le produit');
+        }
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('Administration/Products/layout/show.html.twig', array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),        
+        ));
+    }
+
+    /**
+     * @Route("/admin/produits/{id}/edit", name="adminProducts_edit")
+     */
+    public function edit($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Product::class)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Impossible de trouver le produit.');
+        }
+        $editForm = $this->createEditForm($entity);
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('Administration/Products/layout/edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+    * Creates a form to edit a Product entity.
+    * @param Product $entity The entity
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Product $entity)
+    {
+        $form = $this->createForm(ProductType::class, $entity, array(
+            'action' => $this->generateUrl('adminProducts_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', SubmitType::class, array('label' => 'Editer'));
+
+        return $form;
+    }
+
+    /**
+     * @Route("/admin/produits/{id}/update", name="adminProducts_update", requirements={"_method"="post|put"})
+     */
+    public function update(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository(Product::class)->find($id);
+        if (!$entity) {
+            throw $this->createNotFoundException('Impossible de trouver le produit.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('adminProducts_edit', array('id' => $id)));
+        }
+
+        return $this->render('Administration/Products/layout/edit.html.twig', array(
+            'entity'      => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/admin/produits/{id}/delete", name="adminProducts_delete", requirements={"_method"="post|delete"})
+     */
+    public function delete(Request $request, $id)
+    {
+        $form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository(Product::class)->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Impossible de trouver le produit.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('adminProducts'));
+    }
+
+    /**
+     * Creates a form to delete a Categories entity by id.
+     * @param mixed $id The entity id
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('adminProducts_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, array('label' => 'Supprimer'))
+            ->getForm()
+        ;
     }
 }

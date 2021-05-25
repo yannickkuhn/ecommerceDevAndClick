@@ -17,8 +17,8 @@
                     <div class="span4">
                         <h4>{{ product.category.name }}</h4>
                         <h5>{{ product.name }}</h5>
-                        <p>{{ product.description | raw }}</p>
-                        <h4>{{ product.price|tva(product.tva.multiplicate) }} €</h4>
+                        <p>{{ product.description|raw }}</p>
+                        <h4>{{ product.price|tva(product.tva.multiplicate)|format_currency('EUR', locale='fr') }}</h4>
                         <form action="{{ path('panier') }}">
                             <select name="qte" class="span1">
                                 <option>1</option>
