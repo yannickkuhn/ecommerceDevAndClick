@@ -26,12 +26,12 @@ class Tva
     /**
      * @ORM\Column(type="string", length=125)
      */
-    private $nom;
+    private $name;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $valeur;
+    private $value;
 
     public function getId(): ?int
     {
@@ -50,32 +50,32 @@ class Tva
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): self
+    public function setName(string $name): self
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getValeur(): ?float
+    public function getValue(): ?float
     {
-        return $this->valeur;
+        return $this->value;
     }
 
-    public function setValeur(float $valeur): self
+    public function setValue(float $value): self
     {
-        $this->valeur = $valeur;
+        $this->value = $value;
 
         return $this;
     }
 
     public function __toString()
     {
-        return $this->getNom();
+        return $this->getName();
     }
 }

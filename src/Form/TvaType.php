@@ -13,8 +13,8 @@ class TvaType extends AbstractType
     {
         $builder
             ->add('multiplicate', null, ['label' => 'Coefficient de multiplication'])
-            ->add('nom')
-            ->add('valeur')
+            ->add('name')
+            ->add('value')
         ;
     }
 
