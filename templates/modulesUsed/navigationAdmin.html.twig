@@ -1,18 +1,21 @@
 <!-- TODO : RAJOUTER LES MENUS AU FUR ET A MESURE -->
+
+{% set current_path = app.request.get('_route') %}
+
 <li class="nav-item">
-    <a class="nav-link active" href="{{ path('adminCategories') }}">
-    <span data-feather="home"></span>
-    Catégories produits <span class="sr-only">(current)</span>
+    <a class="nav-link {{ ("Categories" in current_path) ? 'active' }}" href="{{ path('adminCategories') }}">
+    <span data-feather="grid"></span>
+    Catégories produits
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ path('adminTva_index') }}">
-    <span data-feather="file"></span>
+    <a class="nav-link {{ ("Tva" in current_path) ? 'active' }}" href="{{ path('adminTva_index') }}">
+    <span data-feather="percent"></span>
     Liste des TVAs
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ path('adminProducts') }}">
+    <a class="nav-link {{ ("Products" in current_path) ? 'active' }}" href="{{ path('adminProducts') }}">
     <span data-feather="file"></span>
     Liste des produits
     </a>

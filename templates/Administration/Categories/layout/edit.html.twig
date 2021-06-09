@@ -1,16 +1,21 @@
 {% extends 'baseAdmin.html.twig' %}
 
-{% block body -%}
+{% block body %}
     <h1>Edition de la catégorie</h1>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('adminCategories') }}">
-            Revenir à la liste
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <a class="btn btn-info" href="{{ path('adminCategories') }}">
+                        Revenir à la liste
+                    </a>
+                </td>
+                <td class="deleteForm">{{ form(delete_form) }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
 {% endblock %}

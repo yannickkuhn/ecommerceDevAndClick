@@ -17,20 +17,21 @@
             </tbody>
         </table>
 
-        <nav class="nav flex-column">
-            <li>
-                <a class="btn btn-link" href="{{ path('adminCategories') }}">
-                    Retour à la liste
-                </a>
-            </li>
-            <li>
-                <a class="btn btn-link" href="{{ path('adminCategories_edit', { 'id': entity.id }) }}">
-                    éditer
-                </a>
-            </li>
-            <li>{{ form(delete_form) }}</li>
-        </nav>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        <a class="btn btn-info" href="{{ path('adminCategories') }}">
+                            Retour à la liste
+                        </a>  
+                        <a class="btn btn-success" href="{{ path('adminCategories_edit', { 'id': entity.id }) }}">
+                            éditer
+                        </a>
+                    </td>
+                    <td class="deleteForm">{{ form(delete_form) }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    
 {% endblock %}

@@ -204,7 +204,7 @@ class CategoriesAdminController extends AbstractController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('adminCategories_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', SubmitType::class, array('label' => 'Supprimer'))
+            ->add('submit', SubmitType::class, array('label' => 'Supprimer', 'attr' => ['class' => 'btn btn-danger']))
             ->getForm()
         ;
     }
